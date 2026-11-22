@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACK BLADE — Барбершоп</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg-dark: #1a1614;
+    --bg-medium: #241f1c;
+    --bg-light: #2d2622;
+    --accent: #c1440e;
+    --accent-light: #d4561f;
+    --cream: #e8dcc4;
+    --cream-light: #f4ecd8;
+    --brass: #b8956a;
+    --text: #e8dcc4;
+    --muted: #8a7e72;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 25px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26,22,20,0.95);
+    backdrop-filter: blur(15px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(184,149,106,0.2);
+    height: 80px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 3px;
+    font-style: italic;
+  }
+  .logo span { 
+    color: var(--accent);
+    font-style: normal;
+  }
+  nav ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  nav a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    transition: all 0.3s;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: all 0.3s;
+    transform: translateX(-50%);
+  }
+  nav a:hover { color: var(--accent); }
+  nav a:hover::after { width: 100%; }
+  
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-dark);
+    padding-top: 80px; /* Отступ для фиксированной навигации */
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(193,68,14,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(184,149,106,0.1) 0%, transparent 50%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 100px;
+    max-width: 900px;
+  }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--brass);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  .hero-content h1 {
+    font-size: clamp(48px, 7vw, 90px);
+    line-height: 1.1;
+    margin-bottom: 40px;
+    color: var(--cream);
+  }
+  .hero-content h1 span {
+    display: block;
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.65em;
+    margin-top: 15px;
+    text-transform: none;
+  }
+  .hero-description {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 50px;
+    max-width: 500px;
+    line-height: 1.8;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 18px 45px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 13px;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--cream);
+    border: 2px solid var(--accent);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    border: 2px solid var(--brass);
+  }
+  .btn-secondary:hover {
+    background: var(--brass);
+    color: var(--bg-dark);
+  }
+  
+  /* Decorative elements */
+  .hero-decoration {
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgba(184,149,106,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 150px;
+    color: var(--accent);
+    opacity: 0.3;
+  }
+  
+  /* ===== SECTIONS ===== */
+  section {
+    padding: 140px 100px;
+    position: relative;
+  }
+  .section-header {
+    margin-bottom: 100px;
+    max-width: 700px;
+  }
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .section-title {
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 30px;
+  }
+  .section-description {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  
+  /* ===== ABOUT ===== */
+  .about {
+    background: var(--bg-medium);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .about-image {
+    height: 650px;
+    background: var(--bg-light);
+    border: 1px solid rgba(184,149,106,0.3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: var(--accent);
+  }
+  .about-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid var(--accent);
+    z-index: -1;
+  }
+  .about-content h2 {
+    font-size: 52px;
+    line-height: 1.2;
+    margin-bottom: 35px;
+  }
+  .about-content p {
+    color: var(--muted);
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.9;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(184,149,106,0.2);
+  }
+  .stat-item h3 {
+    font-size: 48px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .stat-item p {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin: 0;
+  }
+  
+  /* ===== SERVICES ===== */
+  .services {
+    background: var(--bg-dark);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: var(--bg-medium);
+    padding: 60px 45px;
+    border: 1px solid rgba(184,149,106,0.2);
+    transition: all 0.5s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--brass));
+    transform: scaleX(0);
+    transition: transform 0.5s;
+  }
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+  .service-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+  }
+  .service-number {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 60px;
+    color: var(--accent);
+    opacity: 0.3;
+    margin-bottom: 20px;
+  }
+  .service-card h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--cream);
+  }
+  .service-card p {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 35px;
+    line-height: 1.8;
+  }
+  .service-price {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  
+  /* ===== GALLERY ===== */
+  .gallery {
+    background: var(--bg-medium);
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 250px);
+    gap: 20px;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+  .gallery-item {
+    background: var(--bg-light);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid rgba(184,149,106,0.2);
+    transition: all 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: var(--accent);
+  }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+  .gallery-item:nth-child(6) { grid-column: span 2; }
+  .gallery-item:hover {
+    border-color: var(--accent);
+    transform: scale(1.02);
+    z-index: 2;
+  }
+  
+  /* ===== TEAM ===== */
+  .team {
+    background: var(--bg-dark);
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .barber-card {
+    text-align: center;
+  }
+  .barber-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--bg-medium);
+    margin-bottom: 30px;
+    border: 1px solid rgba(184,149,106,0.3);
+    transition: all 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    color: var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+  .barber-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(193,68,14,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .barber-card:hover .barber-photo {
+    border-color: var(--accent);
+    transform: translateY(-10px);
+  }
+  .barber-card:hover .barber-photo::after {
+    opacity: 1;
+  }
+  .barber-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+  .barber-card p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--brass);
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  
+  /* ===== CONTACT ===== */
+  .contact {
+    background: var(--bg-medium);
+    text-align: center;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto 80px;
+  }
+  .contact-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: none;
+  }
+  .contact-item p {
+    font-size: 17px;
+    color: var(--cream);
+    line-height: 1.9;
+  }
+  .contact-buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 60px;
+    text-align: center;
+    border-top: 1px solid rgba(184,149,106,0.2);
+    background: var(--bg-dark);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+  }
+  .footer-logo span { color: var(--accent); font-style: normal; }
+  footer p {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    section { padding: 100px 50px; }
+    .hero-content { padding: 60px 50px; }
+    .hero-decoration { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 60px; }
+    .about-image { height: 450px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 200px); }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .gallery-item:nth-child(4),
+    .gallery-item:nth-child(6) { grid-column: span 1; }
+  }
+  
+  @media (max-width: 768px) {
+    nav { padding: 20px 30px; height: 70px; }
+    nav ul { display: none; }
+    section { padding: 80px 30px; }
+    .hero { padding-top: 70px; }
+    .hero-content { padding: 40px 30px; }
+    .hero-content h1 { font-size: 42px; }
+    .about-stats { grid-template-columns: 1fr; gap: 30px; }
+    .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(8, 200px); }
+    .gallery-item:nth-child(1) { grid-column: span 1; }
+    .contact-buttons { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Black <span>Blade</span></div>
+  <ul>
+    <li><a href="#about">О нас</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#gallery">Работы</a></li>
+    <li><a href="#team">Мастера</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-subtitle">— С 2015 года —</div>
+    <h1>
+      Искусство<br>мужского стиля
+      <span>где традиции встречают характер</span>
+    </h1>
+    <p class="hero-description">
+      Мы создаём не просто стрижки — мы создаём образы, которые говорят за вас. 
+      Каждый визит — это ритуал, каждая деталь — продумана.
+    </p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Записаться</a>
+      <a href="https://wa.me/79991234567" class="btn btn-secondary" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+  <div class="hero-decoration">💈</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-grid">
+    <div class="about-image">💈</div>
+    <div class="about-content">
+      <span class="section-label">О нас</span>
+      <h2>Больше, чем просто барбершоп</h2>
+      <p>
+        Black Blade — это место, где классические традиции барбершопов встречаются с современным стилем. 
+        Мы верим, что стрижка — это не просто услуга, это искусство, которое требует внимания к каждой детали.
+      </p>
+      <p>
+        Наши мастера — профессионалы с многолетним опытом, прошедшие обучение у лучших барберов Европы. 
+        Мы используем только премиальную косметику и инструменты, потому что вы заслуживаете лучшего.
+      </p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <h3>10+</h3>
+          <p>Лет опыта</p>
+        </div>
+        <div class="stat-item">
+          <h3>5000+</h3>
+          <p>Довольных клиентов</p>
+        </div>
+        <div class="stat-item">
+          <h3>6</h3>
+          <p>Мастеров</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="section-header">
+    <span class="section-label">Наши услуги</span>
+    <h2 class="section-title">Что мы предлагаем</h2>
+    <p class="section-description">
+      Каждая услуга — это продуманный процесс, где важны не только результат, но и опыт.
+    </p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-number">01</div>
+      <h3>Мужская стрижка</h3>
+      <p>Классическая или современная стрижка с консультацией мастера. Мы подберём стиль, который подчеркнёт вашу индивидуальность.</p>
+      <div class="service-price">1 500 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-number">02</div>
+      <h3>Моделирование бороды</h3>
+      <p>Оформление, стрижка и уход за бородой. Используем опасную бритву для идеальной линии и премиальные масла для ухода.</p>
+      <div class="service-price">1 200 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-number">03</div>
+      <h3>Комплекс</h3>
+      <p>Стрижка + борода + уход — полный образ за один визит. Экономия времени и максимальный результат.</p>
+      <div class="service-price">2 400 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-number">04</div>
+      <h3>Королевское бритьё</h3>
+      <p>Классическое бритьё опасной бритвой с горячим полотенцем. Настоящий ритуал для настоящих мужчин.</p>
+      <div class="service-price">1 800 ₽</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery">
+  <div class="section-header">
+    <span class="section-label">Портфолио</span>
+    <h2 class="section-title">Наши работы</h2>
+    <p class="section-description">
+      Каждая стрижка — это история. Вот некоторые из них.
+    </p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">✂️</div>
+    <div class="gallery-item">💈</div>
+    <div class="gallery-item">🪒</div>
+    <div class="gallery-item">✂️</div>
+    <div class="gallery-item">💈</div>
+    <div class="gallery-item">🪒</div>
+    <div class="gallery-item">✂️</div>
+    <div class="gallery-item">💈</div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="team">
+  <div class="section-header">
+    <span class="section-label">Команда</span>
+    <h2 class="section-title">Наши мастера</h2>
+    <p class="section-description">
+      Профессионалы, которые любят своё дело. Каждый из них — мастер своего ремесла.
+    </p>
+  </div>
+  <div class="team-grid">
+    <div class="barber-card">
+      <div class="barber-photo">👨</div>
+      <h3>Александр</h3>
+      <p>Top Barber</p>
+    </div>
+    <div class="barber-card">
+      <div class="barber-photo">👨</div>
+      <h3>Дмитрий</h3>
+      <p>Senior Barber</p>
+    </div>
+    <div class="barber-card">
+      <div class="barber-photo">👨</div>
+      <h3>Максим</h3>
+      <p>Barber</p>
+    </div>
+    <div class="barber-card">
+      <div class="barber-photo">👨</div>
+      <h3>Иван</h3>
+      <p>Barber</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-header" style="text-align: center; margin: 0 auto 100px;">
+    <span class="section-label">Контакты</span>
+    <h2 class="section-title">Записаться</h2>
+    <p class="section-description">
+      Ждём вас в нашем барбершопе. Запишитесь удобным способом.
+    </p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <h3>Адрес</h3>
+      <p>ул. Примерная, 15<br>Москва</p>
+    </div>
+    <div class="contact-item">
+      <h3>Телефон</h3>
+      <p>+7 (999) 123-45-67</p>
+    </div>
+    <div class="contact-item">
+      <h3>Часы работы</h3>
+      <p>Пн–Вс<br>10:00 – 22:00</p>
+    </div>
+    <div class="contact-item">
+      <h3>Соцсети</h3>
+      <p>Instagram<br>Telegram<br>VK</p>
+    </div>
+  </div>
+  <div class="contact-buttons">
+    <a href="tel:+79991234567" class="btn btn-primary">Позвонить</a>
+    <a href="https://wa.me/79991234567" class="btn btn-secondary" target="_blank">Написать в WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Black <span>Blade</span></div>
+  <p>© 2026 Black Blade Barbershop · Все права защищены</p>
+</footer>
+
+<script>
+  // Плавная прокрутка
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
